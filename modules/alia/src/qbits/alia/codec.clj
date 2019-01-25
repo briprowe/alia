@@ -20,6 +20,7 @@
   (decode (.getObject x idx)))
 
 (defprotocol PResultSet
+  (inner [this] "Return the wrapped ResultSet object.")
   (execution-info [this]))
 
 ;; Shamelessly inspired from https://github.com/ghadishayban/squee's
@@ -70,6 +71,7 @@
         decode (:decoder codec)]
     (reify ResultSet
       PResultSet
+      (inner [this] rs)
       (execution-info [this]
         (.getAllExecutionInfo rs))
       clojure.lang.Seqable
